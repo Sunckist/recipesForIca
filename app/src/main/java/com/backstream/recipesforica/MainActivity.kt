@@ -9,20 +9,19 @@ import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
-
-    lateinit var ticket: String
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
+        IcaFacade.instance.authenticate()
+
         fab.setOnClickListener { view ->
-            IcaFacade.instance.authenticate {
-                ticket = it
+            IcaFacade.instance.shoppingLists {
+                Snackbar.make(view, it, Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show()
             }
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+
         }
     }
 
